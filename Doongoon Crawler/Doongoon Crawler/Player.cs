@@ -17,9 +17,6 @@ class Player : Damageable
     public override void Die()
     {
         GameLoop.visionRange = 100;//reveal the whole dungeon
-        Console.SetCursorPosition(0, GameLoop.currentCursorPosition);
-        Console.Write((name + " died! Final Score: 0 EXP because i still havent implemented it. press a button or something to leave").PadRight(Console.BufferWidth));
-        GameLoop.currentCursorPosition++;
         GameLoop.gameplay = false;
     }
 }

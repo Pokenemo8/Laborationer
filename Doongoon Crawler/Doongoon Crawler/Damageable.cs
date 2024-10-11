@@ -3,8 +3,8 @@
     public int health;
     public Dice attackDice;
     public Dice defenseDice;
-
     
+
     public void Attack(Damageable defender)
     {
         int attackRoll = attackDice.Throw();
@@ -60,6 +60,6 @@
         Console.Write((name + " died! You gained 0 EXP because i havent implemented it yet").PadRight(Console.BufferWidth));
         GameLoop.currentCursorPosition++;
         GameLoop.RemoveCharacterFromLocation(location.x, location.y);
-        LevelData.Destroy(this);
+        alive = false;
     }
 }

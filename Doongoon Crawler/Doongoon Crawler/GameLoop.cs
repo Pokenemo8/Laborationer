@@ -27,7 +27,7 @@ static class GameLoop
     {
         while (gameplay)
         {
-            currentCursorPosition = defaultCursorPosition;
+            
             ConsoleKey playerInput = Console.ReadKey(true).Key;
             if (PlayerTurn(playerInput))
             {
@@ -36,8 +36,18 @@ static class GameLoop
             }
         }
     }
+    static void ClearConsole()
+    {
+        for (int i = currentCursorPosition - 1; i >= defaultCursorPosition; i--)
+        {
+            Console.SetCursorPosition(0,i);
+            Console.Write(" ".PadRight(Console.BufferWidth));
+        }
+        currentCursorPosition = defaultCursorPosition;
+    }
     static public bool PlayerTurn(ConsoleKey input)
     {
+        ClearConsole();
         //check if you pressed a direction and move the player if you did
         DungeonElement? target;//what is in the place we are trying to move to
         if (input == ConsoleKey.RightArrow || input == ConsoleKey.D)
@@ -119,7 +129,11 @@ static class GameLoop
         {
             if (element.GetType().IsSubclassOf(typeof(Enemy)))
             {
-                (element as Enemy).Update();
+                if (element.alive)
+                {
+                    (element as Enemy).Update();
+                }
+                
             }
         }
     }
@@ -133,7 +147,10 @@ static class GameLoop
             double distanceToPlayer = Math.Sqrt(distancex * distancex + distancey * distancey);
             if (distanceToPlayer <= visionRange || element.forceVisibility)
             {
-                element.Draw();
+                if (element.alive)
+                {
+                    element.Draw();
+                }
             }
             /*
             else if (!ReferenceEquals(element.GetType(), typeof(Wall))) //if it is not in range and not a wall, hide it
@@ -153,7 +170,11 @@ static class GameLoop
         {
             if((element.location.x, element.location.y) == (x , y))
             {
-                return element;
+                if (element.alive)
+                {
+                    return element;
+                }
+                
             }
         }
         return null;

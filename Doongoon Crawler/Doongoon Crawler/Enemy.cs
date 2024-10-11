@@ -1,5 +1,6 @@
 ﻿abstract class Enemy : Damageable
 {
+    
     public void MoveRight()
     {
         if (GameLoop.GetElementFromLocation(location.x + 1, location.y) == null)

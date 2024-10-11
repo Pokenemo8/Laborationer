@@ -7,6 +7,7 @@ abstract class DungeonElement
     public Location location;
     public string name = "default name";
     public bool forceVisibility = false; //this is only for walls
+    public bool alive = true;//should this thing be drawn and update or not
     public struct Location
     {
         public int x;
